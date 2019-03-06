@@ -1,9 +1,11 @@
 # Cross Population Clustering (CPC)
 Population-based Detection and Genotyping of Single Nucleotide Polymorphisms in Repeated Regions of the Genome
 Jayon Lihm1, Vladimir Makarov2, and Seungtai (Chris) Yoon1
+
 1 Cold Spring Harbor Laboratory, Cold Spring Harbor, NY 11724
 2 Memorial Sloan Kettering Cancer Center, New York, NY 10065
 
+####################
 
 CPC is a SNP Genotyping algorithm in large-scale population, specialized in repeated regions. The method can detect SNPs in small repeated regions that are hard to be genotyped with conventional methods.
 The main algorithm of CPC works on the proportion of alternative allele per position, called "Alternative Allele Proportion (AAP)".
