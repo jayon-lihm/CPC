@@ -27,6 +27,6 @@ In order for PAM to work on AAP values, we require at least 50 samples to be in 
 
 "make_allChr_windows.sh" needs to be run before step #3.  
 
-**4. Clustering_AAP.R**
+**4. Clustering_AAP.R**  
 This R script is the main body of our method. It collects AAP values from all samples and generate a single AAP matrix (of a given block of chromsome to reduce the size). Then PAM clustering runs to determine the lower and upper thresholds that separates g0, g1, and g2; thus the number of clusters is forced to be 3. PAM is applied on four combinations of two conditions: Include/exclude 0 AAPs, trim 5% on both tails or do not trim. We compare the silhouette values from the four clustering results, and consider the one with the largest silhouette value as the **best** clustering. LT and UT are determined from the best clustering result.  
 
