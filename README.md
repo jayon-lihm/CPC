@@ -16,9 +16,7 @@ CPC is a SNP Genotyping algorithm in large-scale population, specialized in repe
 For regular bi-allelic SNPs in two copy regions, the distribution of AAP from unrelated individuals is assumed to have three peaks at 0 for ref/ref (g0), 0.5 for ref/alt (g1), and 1 for alt/alt (g2) genotypes. For repeted regions, however, we observe that peaks are located at unexpected values, for example 0.25 or 0.3, while maintaining the tri-modal distribution. Our algorithm uses PAM clustering to determine two boundaries between g0 and g1, g1 and g2 and assigns genotypes based on the two thresholds to accomodate complicated AAP structure under repeated regions.
 
 Tri-modal distribution of AAPs at a regular position: 
-![alt text][logo]
-
-[logo]: https://github.com/jlihm-seq/CPC/figures/Main_Figure1A_Normal Histogram.pdf "Regular AAP Distribution"
+![alt text] (https://github.com/jlihm-seq/CPC/figures/Main_Figure1A_Normal_Histogram.pdf "Regular AAP Distribution")
 
 PAM clustering: R library "cluster".
 
