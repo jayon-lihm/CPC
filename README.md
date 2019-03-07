@@ -25,7 +25,7 @@ This script processes bam file to pileup files to alternative allele count files
 We deterine boundaries based on high quality positions, that are positions with 30 or more read depth. This script generates a list of AAP values with depth 30 or greater.  
 
 **3. Filter_positions_with_small_samples.sh**  
-In order for PAM to work on AAP values, we require at least 50 samples to be in g1 and at least 5 samples in g2 genotype. Thus we initially scan the number of samples with AAP>0 per position and filter out the positions with less than or equal to 55 samples with AAP>0. PAM would not work well on these positions due to small number of samples.
+In order for PAM to work on AAP values, we require at least 50 samples to be in g1 and at least 5 samples in g2 clusters. Thus we initially scan the number of samples with AAP>0 per position and filter out the positions with less than or equal to 55 samples with AAP>0. PAM would not work well on these positions due to small number of samples.
 
 "make_allChr_windows.sh" needs to be run before step #3.  
 
