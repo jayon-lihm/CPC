@@ -11,33 +11,22 @@ Contact Info: jlihm@cshl.edu
 
 ---
 
-CPC is a SNP Genotyping algorithm in large-scale population, specialized in repeated regions. The method can detect SNPs in small repeated regions that are hard to be genotyped with conventional methods. The main algorithm of CPC works on the proportion of alternative allele per position, called "Alternative Allele Proportion (AAP)". Assuming bi-allelic SNP models, we first find the reference allele and  alternative allele per position. From pileup files generated from Samtools, the number of reads containing A, G, C, T, and DEL are counted per position. We find reference allele and its corresponding counts and determine alternative allele and its count. When there are multiple alternative alleles mapped to the position, we consider the alternative allele with the largest count as the alternative allele for the position. If two or more alternative alleles have tie in read counts, the script randomly selects the alternative allele among the ties. Once we have two allele counts, reference and alternative, we compute the proportion of alternative allele per position: (# of reads with alternative alleles) / (# of reads with reference allele + # of reads with alternative allele). Since the distribution of AAP values depends on the number of reads mapped to the position, CPC filters out positions with less than 9 reads of mapping quality 20 or greater. 
-
-For regular bi-allelic SNPs in two copy regions, the distribution of AAP from unrelated individuals is assumed to have three peaks at 0 for ref/ref (g0), 0.5 for ref/alt (g1), and 1 for alt/alt (g2) genotypes. For repeted regions, however, we observe that peaks are located at unexpected values, for example 0.25 or 0.3, while maintaining the tri-modal distribution. Our algorithm uses PAM clustering to determine two boundaries between g0 and g1, g1 and g2 and assigns genotypes based on the two thresholds to accomodate complicated AAP structure under repeated regions.
-
-Tri-modal distribution of AAPs at a regular position:  
-![Image of AAP_regular](https://github.com/jlihm-seq/CPC/figures/Main_Figure1A_Normal_Histogram.png)
-
-Tri-modal distribution of AAPs that are shifted to the left:  
-![Image of AAP_abnormal](https://github.com/jlihm-seq/CPC/figures/Main_Figure1B_Final_histogram_selected.png)
-
-
-PAM clustering: R library "cluster".
+CPC is a SNP Genotyping algorithm in large-scale population, specialized in repeated regions. The method can detect SNPs in small repeated regions that are difficult to be genotyped with conventional methods.
+The method requires "cluster" package in R.
 
 **1. Generate_AAP_forQuads.sh**  
-This script processes bam file to pileup files to alternative allele count files that will be the groundwork for CPC. BAM files we used were by family (mostly quads consisting of mother, father, sibling, and proband). Thus the script starts from seprating a single family BAM file to four individual BAM files. Individual BAM files are then passed to python scripts to tabulate pileup files and determine reference and alternative alleles per position and count the corresponding number of reads containing reference and alternative alleles.  
-
+This script processes bam file to pileup files to alternative allele count files that will be the groundwork for CPC. BAM files we used were by family (mostly quads consisting of mother, father, sibling, and proband). Thus the script starts from seprating a single family BAM file to four individual BAM files. Individual BAM files are then passed to python scripts to tabulate pileup files and determine reference and alternative alleles per position.  
 
 **2. Make_AAP_withD30.sh**  
-We deterine boundaries based on high quality positions, that are positions with 30 or more read depth. This script generates a list of AAP values with depth 30 or greater.  
+We deterine parameters based on high quality positions, that are positions with 30 or more read depth.  
 
 **3. Filter_positions_with_small_samples.sh**  
-In order for PAM to work on AAP values, we require at least 50 samples to be in g1 and at least 5 samples in g2 clusters. Thus we initially scan the number of samples with AAP>0 per position and filter out the positions with less than or equal to 55 samples with AAP>0. PAM would not work well on these positions due to small number of samples.
+In order for PAM to work on our data, we require at least 55 samples to have genotypes other than ref/ref. Thus we initially scan the number of samples per position and filter out the positions with less than 55 samples with data.
 
 "make_allChr_windows.sh" needs to be run before step #3.  
 
 **4. Clustering_AAP.R**  
-This R script is the main body of our method. It collects AAP values from all samples and generate a single AAP matrix (of a given block of chromsome to reduce the size). Then PAM clustering runs to determine the lower and upper thresholds that separates g0, g1, and g2 per position; thus the number of clusters is forced to be 3. PAM is applied on four combinations of two conditions: Include/exclude 0 AAPs, trim 5% on both tails or do not trim. We compare the silhouette values from the four clustering results, and consider the one with the largest silhouette value as the **best** clustering. LT and UT are determined from the best clustering result.
+This R script is the main body of our method. It collects data from all samples and generate a single matrix (of a given block of chromsome to reduce the size). Then PAM clustering is applied.  
 
 
 
