@@ -11,7 +11,7 @@ Contact Info: jlihm@cshl.edu
 
 ---
 
-CPC is a SNP Genotyping algorithm in large-scale population, specialized in repeated regions. The method can detect SNPs in small repeated regions that are difficult to be genotyped with conventional methods.
+CPC is a SNP Genotyping algorithm in large-scale population. The method can detect SNPs in small repeated regions that are difficult to be genotyped with conventional methods.
 The method requires "cluster" package in R.
 
 **1. Generate_AAP_forQuads.sh**  
