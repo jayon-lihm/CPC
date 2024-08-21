@@ -1,5 +1,6 @@
 # Cross Population Clustering (CPC)
 Population-based Detection and Genotyping of Single Nucleotide Polymorphisms in Repeated Regions of the Genome
+
 Jayon Lihm<sup>1</sup>, Vladimir Makarov<sup>2</sup>, and Seungtai (Chris) Yoon<sup>1</sup>  
 
 1 Cold Spring Harbor Laboratory, Cold Spring Harbor, NY 11724  
